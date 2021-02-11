@@ -52,5 +52,3 @@ class Version_Info extends Plugin {
     return file_get_contents(__DIR__ . '/init.js');
   }
 }
-?>
-
