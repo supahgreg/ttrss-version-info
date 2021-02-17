@@ -6,8 +6,8 @@ class Version_Info extends Plugin {
 
   function about() {
     return [
-      0.1, // version
-      'Show the tt-rss version from anywhere.', // description
+      0.2, // version
+      'Show the tt-rss version using Shift+V.', // description
       'wn', // author
       false, // is system
       'https://github.com/supahgreg/ttrss-version-info', // more info URL
