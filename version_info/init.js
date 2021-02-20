@@ -5,12 +5,11 @@ require(['dijit/Dialog', 'dojo/ready'], (Dialog, ready) => {
       title: __('Version'),
     });
 
-    dojo.connect(dialog, 'onShow', () => {
+    App.hotkey_actions['show_version'] = () => {
       xhr.post('backend.php', {op: 'pluginhandler', plugin: 'version_info', method: 'show_version'}, (reply) => {
         dialog.attr('content', reply);
+        dialog.show();
       });
-    });
-
-    App.hotkey_actions['show_version'] = () => { dialog.show(); }
+    }
   });
 });

@@ -6,7 +6,7 @@ class Version_Info extends Plugin {
 
   function about() {
     return [
-      0.3, // version
+      0.4, // version
       'Show the tt-rss version using Shift+V.', // description
       'wn', // author
       false, // is system
