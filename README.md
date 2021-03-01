@@ -7,6 +7,8 @@ A [Tiny Tiny RSS](https://tt-rss.org) plugin.
 
 Installation
 ------------
-1. Copy the `version_info` directory to the `plugins` directory of your Tiny Tiny RSS installation.
-2. Go to Preferences / Plugins and enable `version_info`.
+1. Clone the repo to **version_info** in your tt-rss **plugins.local** directory:
 
+   `git clone https://github.com/supahgreg/ttrss-version-info.git version_info`
+
+2. Enable the plugin @ Preferences / Plugins
