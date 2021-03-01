@@ -40,9 +40,9 @@ class Version_Info extends Plugin {
 
 
   function show_version() {
-    global $ttrss_version;
+    $ttrss_version = Config::get_version(false);
     print '<a target="_blank" rel="noreferrer noopener" href="https://git.tt-rss.org/git/tt-rss/commit/' . $ttrss_version['commit'] . '">';
-    print get_version();
+    print $ttrss_version['version'];
     print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", $ttrss_version['timestamp']), true, false, true) . ')';
     print '</a>';
   }
@@ -52,3 +52,4 @@ class Version_Info extends Plugin {
     return file_get_contents(__DIR__ . '/init.js');
   }
 }
+?>
