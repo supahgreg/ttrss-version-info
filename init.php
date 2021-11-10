@@ -1,12 +1,8 @@
 <?php
 class Version_Info extends Plugin {
-
-  private $host;
-
-
   function about() {
     return [
-      0.5, // version
+      0.6, // version
       'Show the tt-rss version using Shift+V.', // description
       'wn', // author
       false, // is system
@@ -21,7 +17,6 @@ class Version_Info extends Plugin {
 
 
   function init($host) {
-    $this->host = $host;
     $host->add_hook($host::HOOK_HOTKEY_MAP, $this);
     $host->add_hook($host::HOOK_HOTKEY_INFO, $this);
   }
@@ -52,4 +47,3 @@ class Version_Info extends Plugin {
     return file_get_contents(__DIR__ . '/init.js');
   }
 }
-?>
