@@ -3,7 +3,7 @@ class Version_Info extends Plugin {
   /** @return array<null|float|string|bool> */
   function about() {
     return [
-      0.6, // version
+      null, // version
       'Show the tt-rss version using Shift+V.', // description
       'wn', // author
       false, // is system
@@ -45,25 +45,30 @@ class Version_Info extends Plugin {
    */
   function hook_hotkey_info($hotkeys) {
     $hotkeys[__('Other')]['show_version'] = __('Show tt-rss version info');
+    // @phpstan-ignore-next-line '__()' returns strings
     return $hotkeys;
   }
 
 
   function show_version(): void {
+    /** @var array{'status': int, 'version': string, 'commit'?: string, 'timestamp'?: int|string} */
     $ttrss_version = Config::get_version(false);
-    print '<a target="_blank" rel="noreferrer noopener" href="https://git.tt-rss.org/git/tt-rss/commit/' . $ttrss_version['commit'] . '">';
-    print $ttrss_version['version'];
+    $is_git = array_key_exists('commit', $ttrss_version) && array_key_exists('timestamp', $ttrss_version);
 
-    if (is_numeric($ttrss_version['timestamp'])) {
-      print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", (int) $ttrss_version['timestamp']), true, null, true) . ')';
+    if (!$is_git) {
+      print $ttrss_version['version'];
+      return;
     }
 
+    print '<a target="_blank" rel="noreferrer noopener" href="https://git.tt-rss.org/git/tt-rss/commit/' . $ttrss_version['commit'] . '">';
+    print $ttrss_version['version'];
+    print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", (int) $ttrss_version['timestamp']), true, null, true) . ')';
     print '</a>';
   }
 
 
   /** @return string */
   function get_js() {
-    return file_get_contents(__DIR__ . '/init.js');
+    return file_get_contents(__DIR__ . '/init.js') ?: '';
   }
 }
