@@ -60,7 +60,7 @@ class Version_Info extends Plugin {
       return;
     }
 
-    print '<a target="_blank" rel="noreferrer noopener" href="https://git.tt-rss.org/git/tt-rss/commit/' . $ttrss_version['commit'] . '">';
+    print '<a target="_blank" rel="noreferrer noopener" href="https://dev.tt-rss.org/fox/tt-rss/commit/' . $ttrss_version['commit'] . '">';
     print $ttrss_version['version'];
     print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", (int) $ttrss_version['timestamp']), true, null, true) . ')';
     print '</a>';
