@@ -6,7 +6,7 @@ require(['dijit/Dialog', 'dojo/ready'], (Dialog, ready) => {
     });
 
     App.hotkey_actions['show_version'] = () => {
-      xhr.post('backend.php', {op: 'pluginhandler', plugin: 'version_info', method: 'show_version'}, (reply) => {
+      xhr.post('backend.php', {op: 'PluginHandler', plugin: 'version_info', method: 'show_version'}, (reply) => {
         dialog.attr('content', reply);
         dialog.show();
       });
