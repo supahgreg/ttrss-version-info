@@ -1,7 +1,7 @@
 <?php
 class Version_Info extends Plugin {
   /** @return array<null|float|string|bool> */
-  function about() {
+  public function about() {
     return [
       null, // version
       'Show the tt-rss version using Shift+V.', // description
@@ -13,7 +13,7 @@ class Version_Info extends Plugin {
 
 
   /** @return int */
-  function api_version() {
+  public function api_version() {
     return 2;
   }
 
@@ -23,7 +23,7 @@ class Version_Info extends Plugin {
    *
    * @return void
    **/
-  function init($host) {
+  public function init($host): void {
     $host->add_hook($host::HOOK_HOTKEY_MAP, $this);
     $host->add_hook($host::HOOK_HOTKEY_INFO, $this);
   }
@@ -33,7 +33,7 @@ class Version_Info extends Plugin {
    * @param array<string, string> $hotkeys
    * @return array<string, string>
    */
-  function hook_hotkey_map($hotkeys) {
+  public function hook_hotkey_map($hotkeys) {
     $hotkeys['V'] = 'show_version';
     return $hotkeys;
   }
@@ -43,14 +43,14 @@ class Version_Info extends Plugin {
    * @param array<string, array<string, string>> $hotkeys
    * @return array<string, array<string, string>>
    */
-  function hook_hotkey_info($hotkeys) {
+  public function hook_hotkey_info($hotkeys) {
     $hotkeys[__('Other')]['show_version'] = __('Show tt-rss version info');
     // @phpstan-ignore-next-line '__()' returns strings
     return $hotkeys;
   }
 
 
-  function show_version(): void {
+  public function show_version(): void {
     /** @var array{'status': int, 'version': string, 'commit'?: string, 'timestamp'?: int|string} */
     $ttrss_version = Config::get_version(false);
     $is_git = array_key_exists('commit', $ttrss_version) && array_key_exists('timestamp', $ttrss_version);
@@ -60,15 +60,17 @@ class Version_Info extends Plugin {
       return;
     }
 
-    print '<a target="_blank" rel="noreferrer noopener" href="https://dev.tt-rss.org/tt-rss/tt-rss/commit/' . $ttrss_version['commit'] . '">';
+    print '<strong>tt-rss:</strong> <a target="_blank" rel="noreferrer noopener" href="https://gitlab.tt-rss.org/tt-rss/tt-rss/-/commit/' . $ttrss_version['commit'] . '">';
     print $ttrss_version['version'];
     print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", (int) $ttrss_version['timestamp']), true, null, true) . ')';
     print '</a>';
+    print '<br>';
+    print '<strong>PHP:</strong> <a target="_blank" rel="noreferrer noopener" href="https://www.php.net/ChangeLog-' . \PHP_MAJOR_VERSION . '.php#' . \PHP_VERSION . '">' . \PHP_VERSION . '</a>';
   }
 
 
   /** @return string */
-  function get_js() {
+  public function get_js() {
     return file_get_contents(__DIR__ . '/init.js') ?: '';
   }
 }
