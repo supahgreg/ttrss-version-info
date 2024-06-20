@@ -60,12 +60,16 @@ class Version_Info extends Plugin {
       return;
     }
 
+    $alpine_version = trim(file_get_contents('/etc/alpine-release') ?: 'unknown');
+
     print '<strong>tt-rss:</strong> <a target="_blank" rel="noreferrer noopener" href="https://gitlab.tt-rss.org/tt-rss/tt-rss/-/commit/' . $ttrss_version['commit'] . '">';
     print $ttrss_version['version'];
     print ' (' . TimeHelper::make_local_datetime(gmdate("Y-m-d H:i:s", (int) $ttrss_version['timestamp']), true, null, true) . ')';
     print '</a>';
     print '<br>';
     print '<strong>PHP:</strong> <a target="_blank" rel="noreferrer noopener" href="https://www.php.net/ChangeLog-' . \PHP_MAJOR_VERSION . '.php#' . \PHP_VERSION . '">' . \PHP_VERSION . '</a>';
+    print '<br>';
+    print '<strong>Alpine Linux:</strong> <a target="_blank" rel="noreferrer noopener" href="https://alpinelinux.org/posts/Alpine-'.$alpine_version.'-released.html'.'">' . $alpine_version . '</a>';
   }
 
 
